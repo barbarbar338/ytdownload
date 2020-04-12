@@ -1,6 +1,7 @@
 const { mkdirSync, readFile, createWriteStream }    = require('fs');
 const { table }                                     = require('table');
 const ytdl                                          = require('ytdl-core');
+const { clearLine, cursorTo }                       = require('readline');
 this.logging                                        = true;
 
 try {
@@ -33,7 +34,7 @@ module.exports.downloadVideo = info => {
                     [ 'YTDownload', 'Status', 'Percent' ],
                     [ info.title, 'Starting Download', '0%' ] 
                 ]);
-                process.stdout.write(data);
+                console.log(data);
             }
             video.on('end', () => {
                 if (this.logging) {
@@ -41,9 +42,7 @@ module.exports.downloadVideo = info => {
                         [ 'YTDownload', 'Status', 'Percent' ],
                         [ info.title, 'Download Finished', '100%' ] 
                     ]);
-                    process.stdout.write('\n');
-                    process.stdout.write(data);
-                    process.stdout.write('\n');
+                    console.log(`\n${data}`);
                 }
                 resolve(filePath);
             });
@@ -97,8 +96,8 @@ module.exports.directDownload = url => {
 
 function updateConsole(message) {
     try {
-        process.stdout.clearLine();
-        process.stdout.cursorTo(0);
+        clearLine(process.stdout);
+        cursorTo(process.stdout, 0);
         process.stdout.write(message);
     } catch (err) {
         throw new Error(`[YTDownload] ${err}`)
