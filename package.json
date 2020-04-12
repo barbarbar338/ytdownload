@@ -1,0 +1,35 @@
+{
+  "name": "ytdownload",
+  "version": "1.0.8",
+  "description": "YTDownload: Download YouTube videos easily I guess",
+  "main": "YTDownload.js",
+  "scripts": {
+    "test": "node example.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/barbarbar338/ytdownload"
+  },
+  "bugs": {
+    "url": "https://github.com/barbarbar338/ytdownload/issues"
+  },
+  "homepage": "https://github.com/barbarbar338/ytdownload#readme",
+  "keywords": [
+    "ytdl-core",
+    "ytdl",
+    "youtube",
+    "download",
+    "video",
+    "downloader",
+    "mp4",
+    "vid",
+    "buffer"
+  ],
+  "author": "Barış DEMİRCİ",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "table": "^5.4.6",
+    "ytdl-core": "^2.0.1"
+  }
+}

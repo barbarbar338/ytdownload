@@ -1,0 +1,106 @@
+const { mkdirSync, readFile, createWriteStream }    = require('fs');
+const { table }                                     = require('table');
+const ytdl                                          = require('ytdl-core');
+this.logging                                        = true;
+
+try {
+    mkdirSync("videos")
+} catch (err) {
+    if (err.code !== 'EEXIST') throw new Error(`[YTDownload] ${err}`);
+}
+
+module.exports.getVideoInformation = url => {
+    return new Promise((resolve, reject) => {
+        try {
+            ytdl.getInfo(url, (error, info) => {
+                if (error) reject(`[YTDownload] ${error}`);
+                resolve(info);
+            });
+        } catch (err) {
+            reject(`[YTDownload] ${err}`);
+        }
+    });
+}
+
+module.exports.downloadVideo = info => {
+    return new Promise((resolve, reject) => {
+        try {
+            let video = ytdl(info.video_url);
+            let filePath = `./videos/${info.title.replace(/[^\x00-\x7F]/g, "")}.mp4`
+            video.pipe(createWriteStream(filePath));
+            if (this.logging) {
+                let data = table([
+                    [ 'YTDownload', 'Status', 'Percent' ],
+                    [ info.title, 'Starting Download', '0%' ] 
+                ]);
+                process.stdout.write(data);
+            }
+            video.on('end', () => {
+                if (this.logging) {
+                    let data = table([
+                        [ 'YTDownload', 'Status', 'Percent' ],
+                        [ info.title, 'Download Finished', '100%' ] 
+                    ]);
+                    process.stdout.write('\n');
+                    process.stdout.write(data);
+                    process.stdout.write('\n');
+                }
+                resolve(filePath);
+            });
+            video.on('error', error => {
+                reject(`[YTDownload] ${error}`);
+            });
+            video.on('progress', (chunk, downloaded, total) => {
+                if (this.logging) {
+                    let percent = ((downloaded * 100) / total).toFixed(3);
+                    updateConsole(`[YTDownload] Downloading ${percent}%`);
+                }
+            });
+        } catch (err) {
+            reject(`[YTDownload] ${err}`);
+        }
+    });
+}
+
+module.exports.bufferFromPath = path => {
+    return new Promise((resolve, reject) => {
+        try {
+            readFile(path, (err, buffer) => {
+                if (err) reject(`[YTDownload] ${err}`);
+                resolve(buffer);
+            });
+        } catch (err) {
+            reject(`[YTDownload] ${err}`);
+        }
+    });
+}
+
+module.exports.directDownload = url => {
+    return new Promise((resolve, reject) => {
+        try {
+            this.getVideoInformation(url).then(info => {
+                this.downloadVideo(info).then(filePath => {
+                    this.bufferFromPath(filePath).then(buffer => {
+                        resolve(buffer);
+                    });
+                }).catch(err => {
+                    reject(`[YTDownload] ${err}`);
+                });
+            }).catch(err => {
+                reject(`[YTDownload] ${err}`);
+            });
+        } catch (err) {
+            reject(`[YTDownload] ${err}`);
+        }
+    });
+}
+
+function updateConsole(message) {
+    try {
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+        process.stdout.write(message);
+    } catch (err) {
+        throw new Error(`[YTDownload] ${err}`)
+    }
+}

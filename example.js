@@ -1,31 +1,3 @@
-YTDownload: Download YouTube videos easily I guess
-======
-
-<p><b>YTDownload</b> allows you to download youtube videos easily and has several functions to manage downloaded videos</p>
-<p>Love you <b>ytdl-core</b></p>
-
-<b>[NPM Page](https://www.npmjs.com/package/ytdownload) [GITHUB Page](https://github.com/barbarbar338/ytdownload)</b>
--------
-
-Usage
-------------
-<p>Here is a simple but effective example!</p>
-
-```js
-/* YTDownload Packages */
-const ytdownload = require("ytdownload");
-
-/* Downloading progress
- * You can follow there steps to download a video
- */
-ytdownload.directDownload('http://www.youtube.com/watch?v=A02s8omM_hI').then(buffer => {
-    console.log(buffer);
-});
-```
-
-<p>Isn't it so simple? Let's examine it in a little more detail now</p>
-
-```js
 /* YTDownload Packages */
 const ytdownload = require("ytdownload");
 
@@ -95,11 +67,3 @@ ytdownload.getVideoInformation('http://www.youtube.com/watch?v=A02s8omM_hI').the
 ytdownload.directDownload('http://www.youtube.com/watch?v=A02s8omM_hI').then(buffer => {
     console.log(buffer);
 });
-```
-
-<p>It looks so scary right :D Don't worry you dont have to use all of these xd</p>
-
-[Contact Me For More Help](https://www.is-my.fun/ulas)
--------------------
-
-\ ゜o゜)ノ
