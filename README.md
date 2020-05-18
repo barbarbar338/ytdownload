@@ -4,6 +4,9 @@ YTDownload: Download YouTube videos easily I guess
 <p><b>YTDownload</b> allows you to download youtube videos easily and has several functions to manage downloaded videos</p>
 <p>Love you <b>ytdl-core</b></p>
 
+<b>[Discord: https://discord.com/invite/BjEJFwh](https://discord.com/invite/BjEJFwh)</b>
+-------
+
 <b>[NPM Page](https://www.npmjs.com/package/ytdownload) [GITHUB Page](https://github.com/barbarbar338/ytdownload)</b>
 -------
 

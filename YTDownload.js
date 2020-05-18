@@ -7,18 +7,18 @@ this.logging                                        = true;
 try {
     mkdirSync("videos")
 } catch (err) {
-    if (err.code !== 'EEXIST') throw new Error(`[YTDownload] ${err}`);
+    if (err.code !== 'EEXIST') throw new Error(`[YTDownload] ${err} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`);
 }
 
 module.exports.getVideoInformation = url => {
     return new Promise((resolve, reject) => {
         try {
             ytdl.getInfo(url, (error, info) => {
-                if (error) reject(`[YTDownload] ${error}`);
+                if (error) reject(`[YTDownload] ${error} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`);
                 resolve(info);
             });
         } catch (err) {
-            reject(`[YTDownload] ${err}`);
+            reject(`[YTDownload] ${err} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`);
         }
     });
 }
@@ -47,7 +47,7 @@ module.exports.downloadVideo = info => {
                 resolve(filePath);
             });
             video.on('error', error => {
-                reject(`[YTDownload] ${error}`);
+                reject(`[YTDownload] ${error} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`);
             });
             video.on('progress', (chunk, downloaded, total) => {
                 if (this.logging) {
@@ -56,7 +56,7 @@ module.exports.downloadVideo = info => {
                 }
             });
         } catch (err) {
-            reject(`[YTDownload] ${err}`);
+            reject(`[YTDownload] ${err} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`);
         }
     });
 }
@@ -65,11 +65,11 @@ module.exports.bufferFromPath = path => {
     return new Promise((resolve, reject) => {
         try {
             readFile(path, (err, buffer) => {
-                if (err) reject(`[YTDownload] ${err}`);
+                if (err) reject(`[YTDownload] ${err} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`);
                 resolve(buffer);
             });
         } catch (err) {
-            reject(`[YTDownload] ${err}`);
+            reject(`[YTDownload] ${err} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`);
         }
     });
 }
@@ -83,13 +83,13 @@ module.exports.directDownload = url => {
                         resolve(buffer);
                     });
                 }).catch(err => {
-                    reject(`[YTDownload] ${err}`);
+                    reject(`[YTDownload] ${err} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`);
                 });
             }).catch(err => {
-                reject(`[YTDownload] ${err}`);
+                reject(`[YTDownload] ${err} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`);
             });
         } catch (err) {
-            reject(`[YTDownload] ${err}`);
+            reject(`[YTDownload] ${err} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`);
         }
     });
 }
@@ -100,6 +100,6 @@ function updateConsole(message) {
         cursorTo(process.stdout, 0);
         process.stdout.write(message);
     } catch (err) {
-        throw new Error(`[YTDownload] ${err}`)
+        throw new Error(`[YTDownload] ${err} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`)
     }
 }
