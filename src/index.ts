@@ -66,4 +66,4 @@ export = function ytdownload(url: string, logging = true): Promise<string> {
                 );
         });
     });
-}
+};
