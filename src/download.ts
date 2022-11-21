@@ -1,7 +1,7 @@
-import { mkdir, createWriteStream } from "fs";
+import { createWriteStream, mkdir } from "fs";
+import { clearLine, cursorTo } from "readline";
 import { table } from "table";
 import ytdl, { getInfo } from "ytdl-core";
-import { clearLine, cursorTo } from "readline";
 
 export const downlaod = (url: string, logging = true): Promise<string> => {
 	return new Promise((resolve, reject) => {
@@ -13,7 +13,10 @@ export const downlaod = (url: string, logging = true): Promise<string> => {
 			getInfo(url)
 				.then((info) => {
 					const video = ytdl(info.videoDetails.video_url);
-					const filePath = `./videos/${info.videoDetails.title}.mp4`;
+					const filePath = `./videos/${info.videoDetails.title.replace(
+						/[\W_]+/g,
+						" ",
+					)}.mp4`;
 					video.pipe(createWriteStream(filePath));
 					if (logging) {
 						const data = table([
