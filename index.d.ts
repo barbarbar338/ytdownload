@@ -1,0 +1,1 @@
+export declare const downlaod: (url: string, logging?: boolean) => Promise<string>;
