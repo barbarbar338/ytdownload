@@ -3,8 +3,14 @@ const { clearLine, cursorTo } = require("readline");
 const ytdl = require("ytdl-core");
 
 const error_string =
-	"[YTDownload] ${error} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh";
+	"[YTDownload] ${error} \n\nFOR MORE ADVANCED HELP: https://338.rocks/discord";
 
+/**
+ *
+ * @param {string} url
+ * @param {boolean} logging
+ * @returns {Promise<string>}
+ */
 const download = (url, logging = true) => {
 	return new Promise((resolve, reject) => {
 		mkdir("videos", (err) => {
@@ -38,10 +44,10 @@ const download = (url, logging = true) => {
 					});
 					video.on("error", (error) =>
 						reject(
-							`[YTDownload] ${error} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`,
+							error_string.replace(/${error}/gim, error.message),
 						),
 					);
-					video.on("progress", (chunk, downloaded, total) => {
+					video.on("progress", (_, downloaded, total) => {
 						if (logging) {
 							const percent = (
 								(downloaded * 100) /
@@ -56,9 +62,7 @@ const download = (url, logging = true) => {
 					});
 				})
 				.catch((err) =>
-					reject(
-						`[YTDownload] ${err} \n\nFOR MORE ADVANCED HELP: https://discord.com/invite/BjEJFwh`,
-					),
+					reject(error_string.replace(/${error}/gim, err.message)),
 				);
 		});
 	});

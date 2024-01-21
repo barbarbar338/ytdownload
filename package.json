@@ -1,6 +1,6 @@
 {
 	"name": "ytdownload",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"description": "Download YouTube Videos Easily (Now with CLI support!)",
 	"author": {
 		"email": "hi@338.rocks",
@@ -8,8 +8,8 @@
 		"url": "https://338.rocks"
 	},
 	"license": "MIT",
-	"main": "index.js",
-	"typings": "index.d.ts",
+	"main": "./index.js",
+	"types": "./types.d.ts",
 	"bin": {
 		"ytdownload": "./bin.js"
 	},
@@ -29,11 +29,14 @@
 	],
 	"scripts": {
 		"format": "prettier --write .",
-		"update": "taze latest -w"
+		"update": "taze latest -w",
+		"types": "jsdoc -t node_modules/tsd-jsdoc/dist -d . index.js"
 	},
 	"devDependencies": {
+		"jsdoc": "^4.0.2",
 		"prettier": "^3.2.4",
-		"taze": "^0.13.1"
+		"taze": "^0.13.1",
+		"tsd-jsdoc": "^2.5.0"
 	},
 	"dependencies": {
 		"ytdl-core": "^4.11.5"
